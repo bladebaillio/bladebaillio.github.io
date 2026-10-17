@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Games, MakeCode Arcade extensions, and music by BLADEr.">
+  <title>BLADEr - Creations and Projects</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111827;
+      --panel: #1b2638;
+      --panel-light: #243248;
+      --text: #f1f5f9;
+      --muted: #aab6c7;
+      --cyan: #8cb9f2;
+      --line: rgba(203, 213, 225, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .brand {
+      display: block;
+      width: 136px;
+      height: 48px;
+      overflow: hidden;
+    }
+
+    .brand img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      mix-blend-mode: screen;
+    }
+
+    nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+
+    nav a {
+      color: var(--muted);
+      font-size: .88rem;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    nav a:hover, nav a:focus-visible { color: var(--cyan); }
+
+    .hero {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 42px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-title-stage {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      width: 100%;
+      min-height: 340px;
+      place-items: center;
+    }
+
+    .hero-title-stage model-viewer {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      width: min(380px, 84vw);
+      height: min(380px, 84vw);
+      opacity: .5;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      --poster-color: transparent;
+    }
+
+    .hero h1 {
+      z-index: 1;
+      max-width: 800px;
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: -.045em;
+      line-height: .98;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .hero-link {
+      margin-top: 14px;
+      color: var(--cyan);
+      font-size: .9rem;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .hero-link:hover { text-decoration: underline; }
+
+    main {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .collection {
+      padding: 22px 0 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      margin: 4px 0 0;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      letter-spacing: -.05em;
+      line-height: 1.1;
+    }
+
+    .section-heading p {
+      max-width: 360px;
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--panel);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, .12);
+      transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(140, 185, 242, .5);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+    }
+
+    .art-slot {
+      position: relative;
+      min-height: 150px;
+      overflow: hidden;
+      background: var(--panel-light);
+    }
+
+    .art-slot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body { padding: 18px; }
+
+    .tag {
+      color: var(--cyan);
+      font-size: .76rem;
+      font-weight: 650;
+    }
+
+    .card h3 {
+      margin: 6px 0 7px;
+      font-size: 1.15rem;
+      letter-spacing: -.025em;
+    }
+
+    .card p {
+      min-height: 3em;
+      margin: 0;
+      color: var(--muted);
+      font-size: .87rem;
+    }
+
+    .card-actions { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 16px; }
+
+    .card-actions a {
+      padding: 0;
+      color: var(--text);
+      font-size: .82rem;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .card-actions a:hover { color: var(--cyan); }
+
+    .important-links {
+      margin: 38px 0 20px;
+      padding: 22px;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    .important-links-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 22px;
+    }
+
+    .important-links-list a {
+      color: var(--muted);
+      font-size: .9rem;
+      text-decoration: none;
+    }
+
+    .important-links-list a:hover { color: var(--cyan); }
+
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+    @media (max-width: 760px) {
+      .site-header { align-items: flex-start; flex-direction: column; gap: 14px; }
+      nav { gap: 8px 16px; }
+      .hero-title-stage { min-height: 300px; }
+      .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 520px) {
+      .site-header, .hero, main { width: min(100% - 32px, 1120px); }
+      .card-grid { grid-template-columns: 1fr; }
+      .art-slot { min-height: 160px; }
+      .collection { padding-bottom: 48px; }
+      .hero-title-stage { min-height: 280px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="BLADEr — back to top">
+      <img src="imgs/BLADEr.jpg" alt="BLADEr" width="400" height="400">
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#games">Projects and Games</a>
+      <a href="#extensions">Extensions</a>
+      <a href="#music">Music</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-title-stage">
+      <model-viewer
+        id="hero-sphere"
+        src="./BLADErSphereModal.glb"
+        alt=""
+        aria-hidden="true"
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="35deg"
+        environment-image="neutral"
+        shadow-intensity="0"
+        exposure="1.2"
+        loading="eager">
+      </model-viewer>
+      <h1 id="hero-title">Hi, I'm BLADEr.</h1>
+    </div>
+    <p class="hero-copy">Once upon a time, I was a young boy who started making little flappy bird games for his siblings using simple drag-and-drop code. Since then, I've moved on from these blocks to create more complex games and projects. I started to love programming so much because it was a way for me to be artistic using something I'm good at: Math! Something that sparked my interest in programming was the fact that real-life creatures and biological structures could be made with math problems. This led me into the world of Procedural Animation! Of course, none of this would matter to me without my family and friends and the joy they have playing my games. I hope that by my creations I can inspire others to find joy in creating art through programming. My other interests are Music, Dancing, Writing, and Hiking.   </p>
+    <a class="hero-link" href="#games">See my work <span aria-hidden="true">↓</span></a>
+  </section>
+
+  <main>
+    <section class="collection" id="games" aria-labelledby="games-title">
+      <div class="section-heading">
+        <div><h2 id="games-title">Projects and Games</h2></div>
+        <p>MakeCode Arcade projects, from finished games to works in progress.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <div class="art-slot"><img src="imgs/RippleNurseryImg.png" alt="Ripple Nursery game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Finished · needs polish</div>
+            <h3>Ripple Nursery</h3>
+            <p>Create a peaceful aquatic nursery in this beautiful game featuring procedurally generated fish!</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/procedural-animation/33864/19?u=blader" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/HairSalonImg.png" alt="Hair Salon game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Finished · more planned</div>
+            <h3>Hair Salon</h3>
+            <p>Practice your Barber skills in this fun hair salon simulation!</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/hair-salon-game-dev/42456" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/RobotMosquitoImg.png" alt="Robot Mosquito game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">In progress</div>
+            <h3>Robot Mosquito</h3>
+            <p>Will you be the one to turn on your own boss, or will you go with the protocall?</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/robot-mosquito/35477" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/RedRobotImg.png" alt="Red Robot game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Demo</div>
+            <h3>Red Robot</h3>
+            <p>Save the dying plants with this cute procedurally animated red robot!</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/announcement-makecode-arcade-mini-game-jam-34-outdoors-jam/42463/72?u=blader" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/BitBoxImg.png" alt="Bit Box game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Finished · UI improvements planned</div>
+            <h3>Bit Box</h3>
+            <p>A sandbox game where you create your own elemental interactions based on cellular automata.</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/bit-box-a-sandbox-game/33454/36" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/PAAIBugsImg.png" alt="Procedurally Animated AI Bugs game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">In progress</div>
+            <h3>Procedurally Animated AI Bugs</h3>
+            <p>Grow a little colony of procedurally animated bugs!</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/procedurally-animated-ai-bugs/37930/7" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/GummyWormImg.png" alt="Gummy Worm game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Game Jam Submission</div>
+            <h3>Gummy Worm</h3>
+            <p>Try your hand at collecting all the candies in this sweet and sour rage game.</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/announcement-makecode-arcade-mini-game-jam-35-cursed-jam-3/44312/124?u=blader" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/DetectiveBeetleImg.png" alt="Detective Beetle game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">In the making</div>
+            <h3>Detective Beetle</h3>
+            <p>Solve the crime as a detective beetle in this comedic mystery!</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/detective-beetle-dev/44959" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/GoMoyouImg.png" alt="GO GO MOYOU!!! game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Sprite Stars Competition</div>
+            <h3>GO GO MOYOU!!!</h3>
+            <p>In this game of strategy and mayhem, you play a superhero named Moyou! Fight off the impending Bug Swarms that come to you in strategic formations! As a Hero, You are invincible, but your city folk are not! The City needs YOU!</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/sprite-stars-a-competition/45301/548?u=blader" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/NotTrashImg.png" alt="NO TATASH, DOTOMEEP! game artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Sprite Stars Competition</div>
+            <h3>NO TATASH, DOTOMEEP!</h3>
+            <p>In this game, you play an alien crew scavenging the last remains of planet earth. What we see as rubbish may be the next hot trend fad or the next coolest collectable to the aliens! Would you keep an old pair of shoes, or a dusty broken VHS tape?</p>
+            <div class="card-actions"><a href="https://forum.makecode.com/t/sprite-stars-a-competition/45301/242?u=blader" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="collection" id="extensions" aria-labelledby="extensions-title">
+      <div class="section-heading">
+        <div><h2 id="extensions-title">Extensions I've made</h2></div>
+        <p>Extensions I've created for MakeCode Arcade.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <div class="art-slot"><img src="imgs/SoftBodyExtensionImg.png" alt="Soft Body Extension artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>Soft Body Extension</h3>
+            <p>An extension with a bunch of blocks for Procedural-animation on makecode arcade. This extension can be used for animating ropes, vines, creatures, etc. through physics.</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/soft-body-extension" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/ImageMappingExtensionImg.png" alt="Image Mapping artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>Image Mapping</h3>
+            <p>An extension on MakeCode Arcade for image mapping and simple shape-based transforms.</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/image-mapping" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/RagdollPhysicsExtensionImg.png" alt="Ragdoll Extension artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>Ragdoll Extension</h3>
+            <p>A simple extension for creating ragdoll physics in MakeCode Arcade.</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/ragdoll-extension" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/IKExtensionImg.png" alt="Inverse kinematics extension artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>IK Extension</h3>
+            <p>Extension for Inverse kinematics physics in Makecode Arcade.</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/ik-extension" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/ContinuousRotationExtensionImg.png" alt="Continuous Rotation artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>Continuous Rotation</h3>
+            <p>Makecode arcade extension to make sprites continuously rotate one to another.</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/continuous-rotation" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/DiffusionExtensionImg.png" alt="Diffusion Modal Extension artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>Diffusion Modal Extension</h3>
+            <p>An extension on Makecode arcade for image generation from source piles.</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/diffusion-modal-extension" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/RippleExtensionImg.png" alt="Ripples from Ripple Nursery Extension artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>Ripples from Ripple Nursery</h3>
+            <p>Ripple effects from my game "Ripple Nursery."</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/ripples-from-ripple-nursery-extension" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="art-slot"><img src="imgs/LineCanvasExtensionImg.png" alt="Line Canvas Extension artwork" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">MakeCode Arcade</div>
+            <h3>Line Canvas Extension</h3>
+            <p>Create lines from 2 seperate sprites that draw on a movable canvas</p>
+            <div class="card-actions"><a href="https://github.com/bladebaillio/line-canvas-extension" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="collection" id="music" aria-labelledby="music-title">
+      <div class="section-heading">
+        <div><h2 id="music-title">Music I've released</h2></div>
+        <p>Go listen to my first released album on your favorite music platform!</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <div class="art-slot"><img src="imgs/LifeReinventedAlbumCover.png" alt="Life Reinvented album cover" loading="lazy" decoding="async"></div>
+          <div class="card-body">
+            <div class="tag">Album</div>
+            <h3>Life Reinvented</h3>
+            <p>Go listen to my first released album on your favorite platform!</p>
+            <div class="card-actions">
+              <a href="https://open.spotify.com/album/1WYvZn3CxfVx1BO4t80a2T?si=xxUwJeCfTqyj53ok10u-hA" target="_blank" rel="noopener noreferrer">Spotify ↗</a>
+              <a href="https://pandora.app.link/5o0RyihR96b" target="_blank" rel="noopener noreferrer">Pandora ↗</a>
+              <a href="https://youtube.com/playlist?list=OLAK5uy_nPQJjOFWazanqqOqHrzXD_Lnu1Fgj1dWk&amp;si=8PXWbyyWP_Q2YuhW" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="important-links" aria-label="Important links">
+      <nav class="important-links-list" aria-label="Important links">
+        <a href="https://github.com/bladebaillio" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="https://forum.makecode.com/u/blader/summary" target="_blank" rel="noopener noreferrer">MakeCode Forum ↗</a>
+        <a href="https://open.spotify.com/album/1WYvZn3CxfVx1BO4t80a2T?si=xxUwJeCfTqyj53ok10u-hA" target="_blank" rel="noopener noreferrer">Listen to Life Reinvented ↗</a>
+      </nav>
+    </section>
+  </main>
+
+  <script>
+    const heroTitle = document.querySelector("#hero-title");
+    const heroGreetings = [
+      "Hi, I'm BLADEr.",
+      "You are in BLADEr's WebPage.",
+      "Hello there. I am BLADEr.",
+      "Be Artistic with Programming.",
+      "Math is Art.",
+      "I'm BLADEr, a programmer and artist.",
+      "Programming is Art.",
+      "My name is BLADEr, and I make games."
+    ];
+    heroTitle.textContent = heroGreetings[Math.floor(Math.random() * heroGreetings.length)];
+
+    const heroSphere = document.querySelector("#hero-sphere");
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateSphereMotion = () => {
+      heroSphere.toggleAttribute("auto-rotate", !reducedMotion.matches);
+    };
+
+    updateSphereMotion();
+    reducedMotion.addEventListener("change", updateSphereMotion);
+  </script>
+</body>
+</html>
