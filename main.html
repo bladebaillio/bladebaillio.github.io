@@ -44,6 +44,63 @@
       gap: 24px;
     }
 
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .language-picker { position: relative; }
+
+    .language-toggle {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .language-toggle:hover { border-color: var(--cyan); }
+
+    .language-toggle svg { width: 21px; height: 21px; }
+
+    .language-menu {
+      position: absolute;
+      z-index: 5;
+      top: calc(100% + 8px);
+      right: 0;
+      display: grid;
+      min-width: 150px;
+      gap: 4px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+    }
+
+    .language-menu[hidden] { display: none; }
+
+    .language-option {
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .language-option:hover, .language-option[aria-pressed="true"] {
+      background: var(--panel-light);
+      color: var(--cyan);
+    }
+
     .brand {
       display: block;
       width: 136px;
@@ -257,6 +314,7 @@
 
     @media (max-width: 760px) {
       .site-header { align-items: flex-start; flex-direction: column; gap: 14px; }
+      .header-controls { width: 100%; justify-content: space-between; gap: 12px; }
       nav { gap: 8px 16px; }
       .hero-title-stage { min-height: 300px; }
       .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -281,11 +339,26 @@
     <a class="brand" href="#top" aria-label="BLADEr — back to top">
       <img src="imgs/BLADEr.jpg" alt="BLADEr" width="400" height="400">
     </a>
-    <nav aria-label="Main navigation">
-      <a href="#games">Projects and Games</a>
-      <a href="#extensions">Extensions</a>
-      <a href="#music">Music</a>
-    </nav>
+    <div class="header-controls">
+      <nav id="main-navigation" aria-label="Main navigation">
+        <a href="#games">Projects and Games</a>
+        <a href="#extensions">Extensions</a>
+        <a href="#music">Music</a>
+      </nav>
+      <div class="language-picker">
+        <button class="language-toggle" id="language-toggle" type="button" aria-label="Select language" aria-expanded="false" aria-controls="language-menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+          </svg>
+        </button>
+        <div class="language-menu" id="language-menu" role="group" aria-label="Select language" hidden>
+          <button class="language-option" type="button" data-language="en" lang="en">English</button>
+          <button class="language-option" type="button" data-language="es" lang="es">Español</button>
+          <button class="language-option" type="button" data-language="ja" lang="ja">日本語</button>
+        </div>
+      </div>
+    </div>
   </header>
 
   <section class="hero" id="top" aria-labelledby="hero-title">
@@ -306,7 +379,7 @@
       <h1 id="hero-title">Hi, I'm BLADEr.</h1>
     </div>
     <p class="hero-copy">Once upon a time, I was a young boy who started making little flappy bird games for his siblings using simple drag-and-drop code. Since then, I've moved on from these blocks to create more complex games and projects. I started to love programming so much because it was a way for me to be artistic using something I'm good at: Math! Something that sparked my interest in programming was the fact that real-life creatures and biological structures could be made with math problems. This led me into the world of Procedural Animation! Of course, none of this would matter to me without my family and friends and the joy they have playing my games. I hope that by my creations I can inspire others to find joy in creating art through programming. My other interests are Music, Dancing, Writing, and Hiking.   </p>
-    <a class="hero-link" href="#games">See my work <span aria-hidden="true">↓</span></a>
+    <a class="hero-link" id="hero-link" href="#games"><span id="hero-link-label">See my work</span> <span aria-hidden="true">↓</span></a>
   </section>
 
   <main>
@@ -389,19 +462,19 @@
           </div>
         </article>
         <article class="card">
-          <div class="art-slot"><img src="imgs/GoMoyouImg.png" alt="GO MOYOU!!! game artwork" loading="lazy" decoding="async"></div>
+          <div class="art-slot"><img src="imgs/GoMoyouImg.png" alt="GO GO MOYOU!!! game artwork" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <div class="tag">Sprite Stars Competition</div>
-            <h3>GO MOYOU!!!</h3>
+            <h3>GO GO MOYOU!!!</h3>
             <p>In this game of strategy and mayhem, you play a superhero named Moyou! Fight off the impending Bug Swarms that come to you in strategic formations! As a Hero, You are invincible, but your city folk are not! The City needs YOU!</p>
             <div class="card-actions"><a href="https://forum.makecode.com/t/sprite-stars-a-competition/45301/548?u=blader" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
           </div>
         </article>
         <article class="card">
-          <div class="art-slot"><img src="imgs/NotTrashImg.png" alt="NOT TRASH game artwork" loading="lazy" decoding="async"></div>
+          <div class="art-slot"><img src="imgs/NotTrashImg.png" alt="NO TATASH, DOTOMEEP! game artwork" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <div class="tag">Sprite Stars Competition</div>
-            <h3>NOT TRASH</h3>
+            <h3>NO TATASH, DOTOMEEP!</h3>
             <p>In this game, you play an alien crew scavenging the last remains of planet earth. What we see as rubbish may be the next hot trend fad or the next coolest collectable to the aliens! Would you keep an old pair of shoes, or a dusty broken VHS tape?</p>
             <div class="card-actions"><a href="https://forum.makecode.com/t/sprite-stars-a-competition/45301/242?u=blader" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
           </div>
@@ -523,17 +596,270 @@
 
   <script>
     const heroTitle = document.querySelector("#hero-title");
-    const heroGreetings = [
-      "Hi, I'm BLADEr.",
-      "You are in BLADEr's WebPage.",
-      "Hello there. I am BLADEr.",
-      "Be Artistic with Programming.",
-      "Math is Art.",
-      "I'm BLADEr, a programmer and artist.",
-      "Programming is Art.",
-      "My name is BLADEr, and I make games."
+    const heroGreetings = {
+      en: [
+        "Hi, I'm BLADEr.",
+        "You are in BLADEr's WebPage.",
+        "Hello there. I am BLADEr.",
+        "Be Artistic with Programming.",
+        "Math is Art.",
+        "I'm BLADEr, a programmer and artist.",
+        "Programming is Art.",
+        "My name is BLADEr, and I make games."
+      ],
+      es: [
+        "Hola, soy BLADEr.",
+        "Estás en la página web de BLADEr.",
+        "¡Hola! Soy BLADEr.",
+        "Exprésate con la programación.",
+        "Las matemáticas son arte.",
+        "Soy BLADEr, programador y artista.",
+        "Programar es crear arte.",
+        "Me llamo BLADEr y hago juegos."
+      ],
+      ja: [
+        "こんにちは、BLADErです。",
+        "BLADErのウェブページへようこそ。",
+        "こんにちは。BLADErです。",
+        "プログラミングで自由に表現しよう。",
+        "数学はアート。",
+        "プログラマー兼アーティストのBLADErです。",
+        "プログラミングはアート。",
+        "ゲームを作っているBLADErです。"
+      ]
+    };
+
+    const textEntries = [
+      ["#main-navigation a", ["作品・ゲーム", "拡張機能", "音楽"]],
+      [".hero-copy", ["昔、私は幼い頃、簡単なドラッグ＆ドロップ式のコードを使って、きょうだいのために小さなフラッピーバード風ゲームを作り始めました。それ以来、ブロックから離れ、より複雑なゲームやプロジェクトを作るようになりました。数学という得意分野を使って創作できることから、プログラミングが大好きになりました。現実の生き物や生物の構造を数学の問題で表現できるという発見が、プログラミングへの興味のきっかけの一つでした。こうして私はプロシージャルアニメーションの世界に入りました！もちろん、家族や友人、そして私のゲームを楽しんでくれる人たちがいなければ、これらに意味はありません。私の作品を通して、プログラミングでアートを作る喜びを誰かに伝えられたら嬉しいです。ほかの趣味は音楽、ダンス、執筆、ハイキングです。"]],
+      ["#hero-link-label", ["私の作品を見る"]],
+      ["#games-title", ["作品とゲーム"]],
+      ["#games .section-heading p", ["完成したゲームから制作中の作品まで、MakeCode Arcadeのプロジェクトを紹介します。"]],
+      ["#games .tag", ["完成・仕上げ予定", "完成・追加予定あり", "制作中", "デモ", "完成・UI改善予定", "制作中", "ゲームジャム応募作品", "制作中", "Sprite Starsコンテスト", "Sprite Starsコンテスト"]],
+      ["#games .card p", [
+        "プロシージャル生成の魚たちが登場する、美しいゲームで穏やかな水中の飼育場を作ろう！",
+        "楽しいヘアサロンのシミュレーションで、理髪師の腕を試そう！",
+        "自分のボスを裏切るのか、それとも計画に従うのか？",
+        "プロシージャルアニメーションで動くかわいい赤いロボットと一緒に、枯れゆく植物を救おう！",
+        "セル・オートマトンを使って、自分だけの元素の相互作用を作り出すサンドボックスゲーム。",
+        "プロシージャルアニメーションで動く小さな虫たちのコロニーを育てよう！",
+        "甘くて酸っぱい高難度ゲームで、すべてのお菓子を集めてみよう。",
+        "コミカルなミステリーで、カブトムシの探偵になって事件を解決しよう！",
+        "戦略と大混乱が渦巻くこのゲームで、ヒーローのモヨウとなって迫り来る虫の大群を迎え撃とう！ヒーローは無敵でも、街の人々はそうではない。街には君が必要だ！",
+        "地球に残されたものを探す宇宙人クルーとして冒険しよう。私たちにはゴミに見えるものも、宇宙人には最新の流行やお宝かもしれない！古い靴や、ほこりをかぶった壊れたVHSテープを取っておく？"
+      ]],
+      ["#games .card-actions a", ["プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗", "プロジェクトを見る ↗"]],
+      ["#extensions-title", ["制作した拡張機能"]],
+      ["#extensions .section-heading p", ["MakeCode Arcade向けに制作した拡張機能です。"]],
+      ["#extensions .card p", [
+        "MakeCode Arcadeでプロシージャルアニメーションを行うためのブロックを集めた拡張機能です。物理演算を使って、ロープやツタ、生き物などをアニメーションさせられます。",
+        "MakeCode Arcade向けの画像マッピングと、シンプルな図形ベースの変換を行う拡張機能です。",
+        "MakeCode Arcadeでラグドール物理を作成するためのシンプルな拡張機能です。",
+        "MakeCode Arcadeで逆運動学の物理演算を行う拡張機能です。",
+        "スプライトを連続して回転させるMakeCode Arcade向けの拡張機能です。",
+        "元となる画像群から画像を生成するMakeCode Arcade向けの拡張機能です。",
+        "ゲーム「Ripple Nursery」に登場する波紋エフェクトです。",
+        "移動できるキャンバス上に、2つの別々のスプライトから線を描きます。"
+      ]],
+      ["#extensions .card-actions a", ["GitHubで見る ↗", "GitHubで見る ↗", "GitHubで見る ↗", "GitHubで見る ↗", "GitHubで見る ↗", "GitHubで見る ↗", "GitHubで見る ↗", "GitHubで見る ↗"]],
+      ["#music-title", ["リリースした音楽"]],
+      ["#music .section-heading p", ["お気に入りの音楽配信サービスで、初めてリリースしたアルバムを聴いてみてください！"]],
+      ["#music .tag", ["アルバム"]],
+      ["#music .card p", ["お気に入りの配信サービスで、初めてリリースしたアルバムを聴いてみてください！"]],
+      [".important-links-list a", ["GitHub ↗", "MakeCodeフォーラム ↗", "Life Reinventedを聴く ↗"]]
     ];
-    heroTitle.textContent = heroGreetings[Math.floor(Math.random() * heroGreetings.length)];
+
+    const spanishTextEntries = [
+      ["Proyectos y juegos", "Extensiones", "Música"],
+      ["Hace tiempo, cuando era pequeño, empecé a crear pequeños juegos al estilo de Flappy Bird para mis hermanos usando programación sencilla de arrastrar y soltar. Desde entonces, he pasado de esos bloques a crear juegos y proyectos más complejos. Me empezó a encantar programar porque me permitía expresarme artísticamente con algo que se me da bien: ¡las matemáticas! Algo que despertó mi interés por la programación fue descubrir que las criaturas y estructuras biológicas reales podían crearse mediante problemas matemáticos. ¡Así fue como llegué al mundo de la animación procedural! Por supuesto, nada de esto tendría sentido sin mi familia y amigos, ni sin la alegría que sienten al jugar mis juegos. Espero que mis creaciones inspiren a otras personas a disfrutar creando arte mediante la programación. También me interesan la música, el baile, la escritura y el senderismo."],
+      ["Ver mis proyectos"],
+      ["Proyectos y juegos"],
+      ["Proyectos de MakeCode Arcade, desde juegos terminados hasta trabajos en curso."],
+      ["Terminado · necesita pulido", "Terminado · habrá más", "En desarrollo", "Demo", "Terminado · mejoras de interfaz planeadas", "En desarrollo", "Participación en game jam", "En creación", "Concurso Sprite Stars", "Concurso Sprite Stars"],
+      [
+        "Crea un tranquilo vivero acuático en este precioso juego con peces generados proceduralmente.",
+        "¡Practica tus habilidades de peluquería en esta divertida simulación de salón!",
+        "¿Serás quien se rebele contra su propio jefe o seguirás el protocolo?",
+        "¡Salva las plantas marchitas junto a este simpático robot rojo animado proceduralmente!",
+        "Un juego sandbox donde creas tus propias interacciones elementales mediante autómatas celulares.",
+        "¡Cría una pequeña colonia de insectos animados proceduralmente!",
+        "Intenta recoger todos los caramelos en este desafiante juego agridulce.",
+        "¡Resuelve el crimen como un escarabajo detective en este misterio cómico!",
+        "En este juego de estrategia y caos, juegas como Moyou, un superhéroe. ¡Enfréntate a las hordas de insectos que llegan en formaciones estratégicas! Como héroe eres invencible, pero la gente de tu ciudad no. ¡La ciudad te necesita!",
+        "En este juego, formas parte de una tripulación alienígena que busca los últimos restos del planeta Tierra. Lo que para nosotros es basura puede ser la próxima moda o el objeto más codiciado para los extraterrestres. ¿Guardarías unos zapatos viejos o una cinta VHS rota y polvorienta?"
+      ],
+      Array(10).fill("Ver proyecto ↗"),
+      ["Extensiones que he creado"],
+      ["Extensiones que he creado para MakeCode Arcade."],
+      [
+        "Una extensión con muchos bloques para crear animaciones procedurales en MakeCode Arcade. Permite animar cuerdas, enredaderas, criaturas y más mediante física.",
+        "Una extensión para MakeCode Arcade que permite mapear imágenes y aplicar transformaciones sencillas basadas en formas.",
+        "Una extensión sencilla para crear física de muñecos de trapo en MakeCode Arcade.",
+        "Una extensión de física de cinemática inversa para MakeCode Arcade.",
+        "Una extensión de MakeCode Arcade para hacer que los sprites giren continuamente de uno a otro.",
+        "Una extensión para MakeCode Arcade que genera imágenes a partir de grupos de imágenes de origen.",
+        "Efectos de ondas de mi juego «Ripple Nursery».",
+        "Crea líneas entre dos sprites independientes que se dibujan en un lienzo móvil."
+      ],
+      Array(8).fill("Ver en GitHub ↗"),
+      ["Música que he publicado"],
+      ["¡Escucha mi primer álbum publicado en tu plataforma de música favorita!"],
+      ["Álbum"],
+      ["¡Escucha mi primer álbum publicado en tu plataforma favorita!"],
+      ["GitHub ↗", "Foro de MakeCode ↗", "Escuchar Life Reinvented ↗"]
+    ];
+
+    const attributeEntries = [
+      ["#games .card img", "alt", [
+        "Ripple Nurseryのゲームアート", "Hair Salonのゲームアート", "Robot Mosquitoのゲームアート", "Red Robotのゲームアート", "Bit Boxのゲームアート",
+        "Procedurally Animated AI Bugsのゲームアート", "Gummy Wormのゲームアート", "Detective Beetleのゲームアート", "GO GO MOYOU!!!のゲームアート", "NO TATASH, DOTOMEEP!のゲームアート"
+      ]],
+      ["#extensions .card img", "alt", [
+        "Soft Body Extensionのアート", "Image Mappingのアート", "Ragdoll Extensionのアート", "逆運動学拡張機能のアート",
+        "Continuous Rotationのアート", "Diffusion Modal Extensionのアート", "Ripple Nurseryの波紋拡張機能のアート", "Line Canvas Extensionのアート"
+      ]],
+      ["#music .card img", "alt", ["Life Reinventedのアルバムカバー"]],
+      [".brand", "aria-label", ["BLADEr — ページの先頭へ"]],
+      ["#main-navigation", "aria-label", ["メインナビゲーション"]],
+      [".important-links", "aria-label", ["重要なリンク"]],
+      [".important-links-list", "aria-label", ["重要なリンク"]]
+    ];
+
+    const spanishAttributeEntries = [
+      ["Ilustración del juego Ripple Nursery", "Ilustración del juego Hair Salon", "Ilustración del juego Robot Mosquito", "Ilustración del juego Red Robot", "Ilustración del juego Bit Box", "Ilustración del juego Procedurally Animated AI Bugs", "Ilustración del juego Gummy Worm", "Ilustración del juego Detective Beetle", "Ilustración del juego GO GO MOYOU!!!", "Ilustración del juego NO TATASH, DOTOMEEP!"],
+      ["Ilustración de Soft Body Extension", "Ilustración de Image Mapping", "Ilustración de Ragdoll Extension", "Ilustración de la extensión de cinemática inversa", "Ilustración de Continuous Rotation", "Ilustración de Diffusion Modal Extension", "Ilustración de la extensión de ondas de Ripple Nursery", "Ilustración de Line Canvas Extension"],
+      ["Portada del álbum Life Reinvented"],
+      ["BLADEr — volver al inicio"],
+      ["Navegación principal"],
+      ["Enlaces importantes"],
+      ["Enlaces importantes"]
+    ];
+
+    const originalText = textEntries.map(([selector]) =>
+      Array.from(document.querySelectorAll(selector), element => element.textContent)
+    );
+    const originalAttributes = attributeEntries.map(([selector, attribute]) =>
+      Array.from(document.querySelectorAll(selector), element => element.getAttribute(attribute))
+    );
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    const originalDescription = descriptionMeta.content;
+    const originalTitle = document.title;
+    const languageButton = document.querySelector("#language-toggle");
+    const languageMenu = document.querySelector("#language-menu");
+    const languageOptions = document.querySelectorAll(".language-option");
+
+    function setEntryValues(entries, originals, language) {
+      entries.forEach(([selector, values], entryIndex) => {
+        const elements = document.querySelectorAll(selector);
+        const replacementValues = language === "ja"
+          ? values
+          : language === "es"
+            ? spanishTextEntries[entryIndex]
+            : originals[entryIndex];
+        if (elements.length !== replacementValues.length) {
+          throw new Error(`Localization count mismatch for "${selector}".`);
+        }
+        elements.forEach((element, index) => {
+          element.textContent = replacementValues[index];
+        });
+      });
+    }
+
+    function setAttributeValues(language) {
+      attributeEntries.forEach(([selector, attribute, values], entryIndex) => {
+        const elements = document.querySelectorAll(selector);
+        const replacementValues = language === "ja"
+          ? values
+          : language === "es"
+            ? spanishAttributeEntries[entryIndex]
+            : originalAttributes[entryIndex];
+        if (elements.length !== replacementValues.length) {
+          throw new Error(`Localization count mismatch for "${selector}" attribute "${attribute}".`);
+        }
+        elements.forEach((element, index) => {
+          element.setAttribute(attribute, replacementValues[index]);
+        });
+      });
+    }
+
+    function applyLanguage(language) {
+      document.documentElement.lang = language;
+      document.title = language === "ja"
+        ? "BLADEr - 作品とプロジェクト"
+        : language === "es"
+          ? "BLADEr - Creaciones y proyectos"
+          : originalTitle;
+      descriptionMeta.content = language === "ja"
+        ? "BLADErのゲーム、MakeCode Arcade拡張機能、音楽を紹介します。"
+        : language === "es"
+          ? "Juegos, extensiones de MakeCode Arcade y música de BLADEr."
+          : originalDescription;
+      setEntryValues(textEntries, originalText, language);
+      setAttributeValues(language);
+      const greetings = heroGreetings[language];
+      heroTitle.textContent = greetings[Math.floor(Math.random() * greetings.length)];
+      languageOptions.forEach(option => {
+        option.setAttribute("aria-pressed", String(option.dataset.language === language));
+      });
+    }
+
+    const browserLanguages = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language];
+    const supportedLanguages = ["en", "es", "ja"];
+    const detectedLanguage = browserLanguages
+      .map(language => language.toLowerCase().split("-")[0])
+      .find(language => supportedLanguages.includes(language)) || "en";
+    let savedLanguage = null;
+    try {
+      const preference = localStorage.getItem("blader-language");
+      if (supportedLanguages.includes(preference)) {
+        savedLanguage = preference;
+      }
+    } catch (error) {
+      console.warn("Could not read the saved language preference.", error);
+    }
+
+    let currentLanguage = savedLanguage || detectedLanguage;
+    applyLanguage(currentLanguage);
+    languageButton.addEventListener("click", () => {
+      const isOpening = languageMenu.hidden;
+      languageMenu.hidden = !isOpening;
+      languageButton.setAttribute("aria-expanded", String(isOpening));
+      if (isOpening) {
+        languageOptions[0].focus();
+      }
+    });
+
+    languageOptions.forEach(option => {
+      option.addEventListener("click", () => {
+        currentLanguage = option.dataset.language;
+        languageMenu.hidden = true;
+        languageButton.setAttribute("aria-expanded", "false");
+        languageButton.focus();
+        try {
+          localStorage.setItem("blader-language", currentLanguage);
+        } catch (error) {
+          console.warn("Could not save the language preference.", error);
+        }
+        applyLanguage(currentLanguage);
+      });
+    });
+
+    document.addEventListener("click", event => {
+      if (!event.target.closest(".language-picker")) {
+        languageMenu.hidden = true;
+        languageButton.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !languageMenu.hidden) {
+        languageMenu.hidden = true;
+        languageButton.setAttribute("aria-expanded", "false");
+        languageButton.focus();
+      }
+    });
 
     const heroSphere = document.querySelector("#hero-sphere");
 
